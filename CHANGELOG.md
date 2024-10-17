@@ -1,5 +1,8 @@
 # Version 5.2.9 (not yet released)
 
+**New features**
+- Current weather source: It is now possible to select a "current weather" source different from the main (forecast) source
+
 **Improvements and fixes**
 - Add support for more administration levels (province, regions, county, departments, etc) on locations. Existing manually added locations will need to be re-added
 - Nowcasting chart: honor disabled “Threshold lines on charts” preference
@@ -14,6 +17,7 @@
 
 **Weather sources**
 - [WMO SWIC] Add support for more alert details (full description, instructions, translations) for most countries. Work remains to be done in some countries such as India or Argentina.
+- [MET Norway] Fix alerts not working when used as a secondary source
 
 
 # Version 5.2.8 (2024-09-15)

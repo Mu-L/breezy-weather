@@ -39,7 +39,6 @@ import breezyweather.domain.weather.wrappers.WeatherWrapper
 import org.breezyweather.R
 import org.breezyweather.common.exceptions.InvalidOrIncompleteDataException
 import org.breezyweather.common.extensions.getFormattedDate
-import org.breezyweather.common.extensions.toDate
 import org.breezyweather.common.extensions.toDateNoHour
 import org.breezyweather.sources.metno.json.MetNoAirQualityResult
 import org.breezyweather.sources.metno.json.MetNoAlertResult
@@ -51,10 +50,8 @@ import org.breezyweather.sources.metno.json.MetNoNowcastResult
 import org.breezyweather.sources.metno.json.MetNoSunProperties
 import org.breezyweather.sources.metno.json.MetNoSunResult
 import java.util.Date
-import java.util.Objects
 import kotlin.math.roundToInt
 import kotlin.time.Duration.Companion.minutes
-import kotlin.time.Duration.Companion.seconds
 
 fun convert(
     context: Context,
@@ -72,27 +69,12 @@ fun convert(
         throw InvalidOrIncompleteDataException()
     }
 
-    val currentTimeseries = nowcastResult.properties?.timeseries?.getOrNull(0)?.data
     return WeatherWrapper(
         /*base = Base(
             // TODO: Use nowcast updatedAt if available
             publishDate = forecastResult.properties.meta?.updatedAt ?: Date()
         ),*/
-        current = if (currentTimeseries != null) Current(
-            weatherText = getWeatherText(context, currentTimeseries.symbolCode),
-            weatherCode = getWeatherCode(currentTimeseries.symbolCode),
-            temperature = Temperature(
-                temperature = currentTimeseries.instant?.details?.airTemperature,
-            ),
-            wind = if (currentTimeseries.instant?.details != null) Wind(
-                degree = currentTimeseries.instant.details.windFromDirection,
-                speed = currentTimeseries.instant.details.windSpeed
-            ) else null,
-            relativeHumidity = currentTimeseries.instant?.details?.relativeHumidity,
-            dewPoint = currentTimeseries.instant?.details?.dewPointTemperature,
-            pressure = currentTimeseries.instant?.details?.airPressureAtSeaLevel,
-            cloudCover = currentTimeseries.instant?.details?.cloudAreaFraction?.roundToInt()
-        ) else null,
+        current = getCurrent(nowcastResult, context),
         dailyForecast = getDailyList(
             location,
             sunResult.properties,
@@ -107,6 +89,27 @@ fun convert(
         minutelyForecast = getMinutelyList(nowcastResult.properties?.timeseries),
         alertList = getAlerts(metNoAlerts)
     )
+}
+
+fun getCurrent(nowcastResult: MetNoNowcastResult, context: Context): Current? {
+    val currentTimeseries = nowcastResult.properties?.timeseries?.getOrNull(0)?.data
+    return if (currentTimeseries != null) {
+        Current(
+            weatherText = getWeatherText(context, currentTimeseries.symbolCode),
+            weatherCode = getWeatherCode(currentTimeseries.symbolCode),
+            temperature = Temperature(
+                temperature = currentTimeseries.instant?.details?.airTemperature,
+            ),
+            wind = if (currentTimeseries.instant?.details != null) Wind(
+                degree = currentTimeseries.instant.details.windFromDirection,
+                speed = currentTimeseries.instant.details.windSpeed
+            ) else null,
+            relativeHumidity = currentTimeseries.instant?.details?.relativeHumidity,
+            dewPoint = currentTimeseries.instant?.details?.dewPointTemperature,
+            pressure = currentTimeseries.instant?.details?.airPressureAtSeaLevel,
+            cloudCover = currentTimeseries.instant?.details?.cloudAreaFraction?.roundToInt()
+        )
+    } else null
 }
 
 private fun getHourlyList(
@@ -298,7 +301,8 @@ private fun getWeatherText(context: Context, icon: String?): String? {
 fun convertSecondary(
     nowcastResult: MetNoNowcastResult?,
     airQualityResult: MetNoAirQualityResult?,
-    metNoAlertResults: MetNoAlertResult?
+    metNoAlertResults: MetNoAlertResult?,
+    context: Context
 ): SecondaryWeatherWrapper {
     val airQualityHourly: MutableMap<Date, AirQuality> = mutableMapOf()
 
@@ -313,11 +317,17 @@ fun convertSecondary(
     }
 
     return SecondaryWeatherWrapper(
+        current = if (nowcastResult != null) {
+            getCurrent(nowcastResult, context)
+        } else null,
         airQuality = if (airQualityResult != null) {
             AirQualityWrapper(hourlyForecast = airQualityHourly)
         } else null,
         minutelyForecast = if (nowcastResult != null) {
             getMinutelyList(nowcastResult.properties?.timeseries)
+        } else null,
+        alertList = if (metNoAlertResults != null) {
+            getAlerts(metNoAlertResults)
         } else null
     )
 }

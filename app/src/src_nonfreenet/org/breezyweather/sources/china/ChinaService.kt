@@ -18,7 +18,6 @@ package org.breezyweather.sources.china
 
 import android.content.Context
 import android.graphics.Color
-import androidx.compose.ui.text.toLowerCase
 import breezyweather.domain.location.model.Location
 import breezyweather.domain.weather.wrappers.SecondaryWeatherWrapper
 import breezyweather.domain.weather.wrappers.WeatherWrapper
@@ -61,6 +60,7 @@ class ChinaService @Inject constructor(
     }
 
     override val supportedFeaturesInMain = listOf(
+        SecondaryWeatherSourceFeature.FEATURE_CURRENT,
         SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY,
         SecondaryWeatherSourceFeature.FEATURE_MINUTELY,
         SecondaryWeatherSourceFeature.FEATURE_ALERT
@@ -127,6 +127,7 @@ class ChinaService @Inject constructor(
 
     // SECONDARY WEATHER SOURCE
     override val supportedFeaturesInSecondary = listOf(
+        SecondaryWeatherSourceFeature.FEATURE_CURRENT,
         SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY,
         SecondaryWeatherSourceFeature.FEATURE_MINUTELY,
         SecondaryWeatherSourceFeature.FEATURE_ALERT
@@ -136,6 +137,7 @@ class ChinaService @Inject constructor(
     ): Boolean {
         return isFeatureSupportedInMainForLocation(location, feature)
     }
+    override val currentAttribution = weatherAttribution
     override val airQualityAttribution = weatherAttribution
     override val pollenAttribution = null
     override val minutelyAttribution = weatherAttribution
@@ -158,7 +160,8 @@ class ChinaService @Inject constructor(
         }
 
         val mainly = if (requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_ALERT) ||
-            requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY)) {
+            requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_AIR_QUALITY) ||
+            requestedFeatures.contains(SecondaryWeatherSourceFeature.FEATURE_CURRENT)) {
             mApi.getForecastWeather(
                 location.latitude,
                 location.longitude,
