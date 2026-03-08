@@ -20,5 +20,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ChinaMinutelyResult(
+    val status: Int? = null,
     val precipitation: ChinaMinutelyPrecipitation? = null,
 )

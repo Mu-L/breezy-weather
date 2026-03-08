@@ -40,6 +40,7 @@ import breezyweather.domain.weather.wrappers.WeatherWrapper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
 import org.breezyweather.common.exceptions.InvalidLocationException
+import org.breezyweather.common.exceptions.InvalidOrIncompleteDataException
 import org.breezyweather.common.exceptions.ReverseGeocodingException
 import org.breezyweather.common.extensions.code
 import org.breezyweather.common.extensions.currentLocale
@@ -157,7 +158,12 @@ class ChinaService @Inject constructor(
         } else {
             Observable.just(ChinaMinutelyResult())
         }
+
+        // TODO: Add 1 second delay between the two, as the second may be failing due to requests being simultaneous
         return Observable.zip(main, minutely) { mainResult: ChinaForecastResult, minutelyResult: ChinaMinutelyResult ->
+            if (minutelyResult.status == -1) {
+                failedFeatures[SourceFeature.MINUTELY] = InvalidOrIncompleteDataException()
+            }
             WeatherWrapper(
                 dailyForecast = if (SourceFeature.FORECAST in requestedFeatures) {
                     getDailyList(
