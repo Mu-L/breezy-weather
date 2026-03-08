@@ -454,23 +454,6 @@
         <item>@color/pollenLevel_5</item>
     </integer-array>
 
-    <string-array name="pollen_recosante_levels">
-        <item>Risque nul</item>
-        <item>Très faible</item>
-        <item>Faible</item>
-        <item>Moyen</item>
-        <item>Élevé</item>
-        <item>Très élevé</item>
-    </string-array>
-    <integer-array name="pollen_recosante_level_colors">
-        <item>@color/pollenRecosanteLevel_0</item>
-        <item>@color/pollenRecosanteLevel_1</item>
-        <item>@color/pollenRecosanteLevel_2</item>
-        <item>@color/pollenRecosanteLevel_3</item>
-        <item>@color/pollenRecosanteLevel_4</item>
-        <item>@color/pollenRecosanteLevel_5</item>
-    </integer-array>
-
     <string-array name="pollen_polleninfo_levels">
         <item>@string/pollen_level_0</item>
         <item>@string/pollen_level_2</item>
