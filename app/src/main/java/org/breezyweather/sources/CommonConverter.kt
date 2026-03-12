@@ -787,16 +787,16 @@ private fun getHalfDayWeatherCodeFromHourlyList(
         (maxPrecipitationProbability?.total ?: 100.percent) > minPrecipProbability
     ) {
         val isRain = maxPrecipitationProbability?.rain?.let { it > minPrecipProbability }
-            ?: totPrecipitation!!.rain?.let { it.value > 0 }
+            ?: totPrecipitation?.rain?.let { it.value > 0 }
             ?: false
         val isSnow = maxPrecipitationProbability?.snow?.let { it > minPrecipProbability }
-            ?: totPrecipitation!!.snow?.let { it.value > 0 }
+            ?: totPrecipitation?.snow?.let { it.value > 0 }
             ?: false
         val isIce = maxPrecipitationProbability?.ice?.let { it > minPrecipProbability }
-            ?: totPrecipitation!!.ice?.let { it.value > 0 }
+            ?: totPrecipitation?.ice?.let { it.value > 0 }
             ?: false
         val isThunder = maxPrecipitationProbability?.thunderstorm?.let { it > minPrecipProbability }
-            ?: totPrecipitation!!.thunderstorm?.let { it.value > 0 }
+            ?: totPrecipitation?.thunderstorm?.let { it.value > 0 }
             ?: false
 
         if (isRain || isSnow || isIce || isThunder) {

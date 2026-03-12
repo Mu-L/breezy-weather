@@ -6,6 +6,9 @@
 
 # Version 6.2.0 (not yet released)
 
+**Improvements and fixes**
+- Fix failing to refresh some forecast sources in some cases when the source is not reporting total precipitation
+
 **Sources**
 - China - Fix nowcasting refresh silently failing
 - FMI - Added as a new forecast, current, air quality, alert, normals source for Finland (@chunshek). Users on devices with hardened memory allocator (`hardened_malloc`) enabled, such as GrapheneOS may want to disable the feature for the app if they find the refresh to be too slow.
