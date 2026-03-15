@@ -8,6 +8,7 @@
 
 **Improvements and fixes**
 - Fix failing to refresh some forecast sources in some cases when the source is not reporting total precipitation
+- Forbid editing locations when weather is refreshing to avoid race condition
 
 **Sources**
 - China - Fix nowcasting refresh silently failing

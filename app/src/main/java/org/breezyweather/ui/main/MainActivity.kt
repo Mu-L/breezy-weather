@@ -888,8 +888,12 @@ class MainActivity : BreezyActivity(), HomeFragment.Callback, ManagementFragment
 
     // main fragment callback.
     override fun onEditIconClicked() {
-        _dialogPerLocationSettingsOpen.value = true
-        initPerLocationSettingsView()
+        if (viewModel.loading.value) {
+            SnackbarHelper.showSnackbar(getString(R.string.message_please_wait_refresh))
+        } else {
+            _dialogPerLocationSettingsOpen.value = true
+            initPerLocationSettingsView()
+        }
     }
 
     override fun onOpenInOtherAppIconClicked() {

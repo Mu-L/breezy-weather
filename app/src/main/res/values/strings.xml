@@ -550,6 +550,7 @@
     <string name="message_source_non_free_network_title">This source requires the Standard version of the app</string>
     <string name="message_source_non_free_network_content">You’re using the Freenet version of the app, which only supports sources hosted on a free network. To keep using this source, switch back to the Standard version. Otherwise, choose a different source.</string>
     <string name="message_tap_again_to_exit">Tap again to exit</string>
+    <string name="message_please_wait_refresh">Please wait for refresh to complete</string>
     <!-- Widgets -->
     <string name="widget_day">Daily</string>
     <string name="widget_week">Weekly</string>

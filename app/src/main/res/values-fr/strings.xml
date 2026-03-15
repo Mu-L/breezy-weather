@@ -435,6 +435,7 @@
     <!-- Example: Expected to stop at 09:00 AM -->
     <string name="notification_precipitation_stopping_desc">Fin prévue à %s</string>
     <string name="message_tap_again_to_exit">Appuyez à nouveau pour quitter</string>
+    <string name="message_please_wait_refresh">Veuillez attendre la fin du rafraîchissement</string>
     <!-- content description -->
     <string name="action_delete">Supprimer</string>
     <string name="action_back">Retour</string>

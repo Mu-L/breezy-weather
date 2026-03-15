@@ -49,14 +49,22 @@ class LocationItemTouchCallback(
         super.onSelectedChanged(viewHolder, actionState)
         when (actionState) {
             ItemTouchHelper.ACTION_STATE_IDLE -> if (mDragged) {
-                mDragged = false
-                mViewModel.swapLocations(mDragFrom, mDragTo)
+                if (mViewModel.loading.value) {
+                    SnackbarHelper.showSnackbar(mActivity.getString(R.string.message_please_wait_refresh))
+                } else {
+                    mDragged = false
+                    mViewModel.swapLocations(mDragFrom, mDragTo)
+                }
             }
 
             ItemTouchHelper.ACTION_STATE_DRAG -> if (!mDragged && viewHolder != null) {
-                mDragged = true
-                mDragFrom = viewHolder.bindingAdapterPosition
-                mDragTo = mDragFrom
+                if (mViewModel.loading.value) {
+                    SnackbarHelper.showSnackbar(mActivity.getString(R.string.message_please_wait_refresh))
+                } else {
+                    mDragged = true
+                    mDragFrom = viewHolder.bindingAdapterPosition
+                    mDragTo = mDragFrom
+                }
             }
         }
     }
@@ -66,9 +74,14 @@ class LocationItemTouchCallback(
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder,
     ): Boolean {
-        mDragTo = target.bindingAdapterPosition
-        mReactor.reorderByDrag(viewHolder.bindingAdapterPosition, mDragTo)
-        return true
+        if (mViewModel.loading.value) {
+            SnackbarHelper.showSnackbar(mActivity.getString(R.string.message_please_wait_refresh))
+            return false
+        } else {
+            mDragTo = target.bindingAdapterPosition
+            mReactor.reorderByDrag(viewHolder.bindingAdapterPosition, mDragTo)
+            return true
+        }
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -77,7 +90,11 @@ class LocationItemTouchCallback(
         when (direction) {
             ItemTouchHelper.START -> {
                 viewHolder.bindingAdapter!!.notifyItemChanged(position)
-                mViewModel.openChooseWeatherSourcesDialog(location)
+                if (mViewModel.loading.value) {
+                    SnackbarHelper.showSnackbar(mActivity.getString(R.string.message_please_wait_refresh))
+                } else {
+                    mViewModel.openChooseWeatherSourcesDialog(location)
+                }
             }
 
             ItemTouchHelper.END -> if (mViewModel.validLocationList.value.size <= 1) {
@@ -86,12 +103,17 @@ class LocationItemTouchCallback(
                     mActivity.getString(R.string.location_message_list_cannot_be_empty)
                 )
             } else {
-                location = mViewModel.deleteLocation(position)
-                SnackbarHelper.showSnackbar(
-                    content = mActivity.getString(R.string.location_message_deleted),
-                    action = mActivity.getString(R.string.action_undo),
-                    listener = CancelDeleteListener(location, position)
-                )
+                if (mViewModel.loading.value) {
+                    viewHolder.bindingAdapter!!.notifyItemChanged(position)
+                    SnackbarHelper.showSnackbar(mActivity.getString(R.string.message_please_wait_refresh))
+                } else {
+                    location = mViewModel.deleteLocation(position)
+                    SnackbarHelper.showSnackbar(
+                        content = mActivity.getString(R.string.location_message_deleted),
+                        action = mActivity.getString(R.string.action_undo),
+                        listener = CancelDeleteListener(location, position)
+                    )
+                }
             }
         }
     }
