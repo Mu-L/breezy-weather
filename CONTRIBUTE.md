@@ -2,12 +2,73 @@
 
 ## Rules for contributions
 
+### Summary
+
+1. You are contributing to an issue/idea tagged “Open to contributions”, or an [org member](https://github.com/orgs/breezy-weather/people) gave you permission to work on it
+2. If AI was used, you have followed the AI guidelines
+3. If you submit code, you ensured there is no linting issue
+4. Your pull request is up-to-date with current `main` branch
+5. Your pull request contains 1 single commit
+
+
+### The contribution was discussed beforehand
+
 While we welcome pull requests, before implementing any new feature/improvement, we ask you to come talk to us, to be sure it goes in the right direction. We don’t want you to spend time implementing something we don’t want (see “Rules for new features/improvements requests” section below) or implementing it the wrong way.
 
 You can also contribute to [existing issues tagged “Open to contributions”](https://github.com/breezy-weather/breezy-weather/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22Open%20to%20contributions%22), or [existing ideas tagged “Open to contributions”](https://github.com/breezy-weather/breezy-weather/discussions?discussions_q=is%3Aopen+label%3A%22Open+to+contributions%22).
 
-Prerequisites for pull requests contributions:
-1. You are contributing to an issue/idea tagged “Open to contributions”, or an [org member](https://github.com/orgs/breezy-weather/people) gave you permission to work on it.
+
+### AI guidelines
+
+AI has numerous ethical concerns (such as copyright violations and huge use of energy and water), so we prefer you only use it if strictly necessary.
+
+If you use AI or any kind of assistance tool, you use it as an assistant, meaning you're responsible for:
+1. **Understanding** every line of code and documentation you submit, and be able to explain the approach during review.
+2. **Ensuring it is correct, safe and appropriate**: these tools are good at generating plausible but meaningless content. So, you need to carefully review it, to avoid lowering the project code quality, or requiring unfair amount of human effort from developers and users to review contributions and detect the mistakes resulting from the use of AI.
+3. Ensuring it can be **licensed under LGPLv3** (the project license): do not use tools whose terms forbid using their output in LGPLv3-licensed projects or impose additional restrictions on redistribution.
+4. **Transparency**: disclose when AI was used. Which tools were used, and what they were used for.
+
+If you can't follow them, don’t use AI.
+
+When in doubt, ask a project maintainer, before submitting the contribution.
+
+
+### Linting
+
+You can check linting issues with `./gradlew spotlessCheck`.
+
+You can apply `./gradlew spotlessApply` if necessary.
+
+
+### Before submitting
+
+Since you started working on your pull request, many commits might have been added, so you will need to rebase.
+
+First, make sure you added our repo as `upstream` remote:
+```
+git remote add upstream https://github.com/breezy-weather/breezy-weather
+```
+
+Then:
+```
+git fetch upstream
+git rebase upstream main
+```
+
+Fix conflicts if there are any.
+
+Then, you can push (you may need the `--force` argument if you already pushed, as you are rewriting history).
+
+Please test your changes.
+
+If you made multiple commits, please stash them as it makes reviewing easier. Unless the commits are about different things. Then, you need to split them into multiple pull requests.
+
+For example, if you made 2 commits, you can use:
+```
+git reset --soft HEAD~2
+```
+
+You can make a new commit, and once again, push your changes adding the `--force` argument.
 
 
 ## Rules for new features/improvements requests
@@ -72,28 +133,6 @@ git checkout -B mynewprovider
 ```
 
 You can start working on it!
-
-
-### Submit
-
-Since you started working on your pull request, many commits might have been added, so you will need to rebase:
-```
-git fetch upstream
-git rebase upstream main
-```
-
-(it it can’t find `upstream`, check instructions at the top of this document)
-
-If you are working on a new provider, you will usually not have any conflict, unless a new provider was added in the meantime in `SourceManager`, but in that case, you will find it easy to fix the conflict.
-
-Then, you can push (with `--force` argument as you are rewriting history).
-
-Please test your changes and if it works and you made multiple commits, please stash them as it makes reviewing easier. For example, if you made 2 commits, you can use:
-```
-git reset --soft HEAD~2
-```
-
-You can make a new commit, and once again, push your changes adding the `--force` argument.
 
 
 ## Weather sources
