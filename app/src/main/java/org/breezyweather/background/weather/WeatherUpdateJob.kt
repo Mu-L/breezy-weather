@@ -43,7 +43,7 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.ensureActive
-import org.breezyweather.BuildConfig
+import org.breezyweather.BreezyWeather
 import org.breezyweather.background.updater.AppUpdateChecker
 import org.breezyweather.common.bus.EventBus
 import org.breezyweather.common.extensions.createFileInCacheDir
@@ -131,7 +131,9 @@ class WeatherUpdateJob @AssistedInject constructor(
                 /*if ((BuildConfig.FLAVOR != "freenet" && SettingsManager.getInstance(context).isAppUpdateCheckEnabled) ||
                     Build.VERSION.SDK_INT < Build.VERSION_CODES.M
                 ) {*/
-                if (BuildConfig.FLAVOR != "freenet" && SettingsManager.getInstance(context).isAppUpdateCheckEnabled) {
+                if (BreezyWeather.instance.isGitHubUpdateCheckerEnabled &&
+                    SettingsManager.getInstance(context).isAppUpdateCheckEnabled
+                ) {
                     try {
                         updateChecker.checkForUpdate(context, forceCheck = false)
                     } catch (e: Exception) {

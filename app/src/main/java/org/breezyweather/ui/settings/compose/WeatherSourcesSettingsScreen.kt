@@ -33,6 +33,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import org.breezyweather.BreezyWeather
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
 import org.breezyweather.common.extensions.currentLocale
@@ -113,7 +114,13 @@ fun WeatherSourcesSettingsScreen(
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 style = MaterialTheme.typography.bodyMedium
                             )
-                            if (BuildConfig.INSTALL_INSTRUCTIONS_LINK.startsWith("https://")) {
+                            if (BuildConfig.INSTALL_INSTRUCTIONS_LINK.startsWith("https://") &&
+                                (
+                                    !BuildConfig.INSTALL_INSTRUCTIONS_LINK.contains("breezy", ignoreCase = true) ||
+                                        BreezyWeather.instance.isSignedByBreezy ||
+                                        BreezyWeather.instance.debugMode
+                                    )
+                            ) {
                                 TextButton(
                                     modifier = Modifier.align(Alignment.CenterHorizontally),
                                     onClick = {

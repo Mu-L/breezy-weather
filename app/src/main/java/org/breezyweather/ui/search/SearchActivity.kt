@@ -69,6 +69,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import breezyweather.domain.location.model.Location
 import dagger.hilt.android.AndroidEntryPoint
+import org.breezyweather.BreezyWeather
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
 import org.breezyweather.common.activities.BreezyActivity
@@ -93,7 +94,8 @@ import javax.inject.Inject
 class SearchActivity : BreezyActivity() {
     private lateinit var viewModel: SearchViewModel
 
-    @Inject lateinit var sourceManager: SourceManager
+    @Inject
+    lateinit var sourceManager: SourceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -129,7 +131,9 @@ class SearchActivity : BreezyActivity() {
                     ),
                     actions = {
                         Box(
-                            modifier = Modifier.padding(start = 16.dp, end = 16.dp).weight(100f)
+                            modifier = Modifier
+                                .padding(start = 16.dp, end = 16.dp)
+                                .weight(100f)
                         ) {
                             Column {
                                 Text(
@@ -282,7 +286,16 @@ class SearchActivity : BreezyActivity() {
                                             color = MaterialTheme.colorScheme.onSecondaryContainer,
                                             style = MaterialTheme.typography.bodyMedium
                                         )
-                                        if (BuildConfig.INSTALL_INSTRUCTIONS_LINK.startsWith("https://")) {
+                                        if (BuildConfig.INSTALL_INSTRUCTIONS_LINK.startsWith("https://") &&
+                                            (
+                                                !BuildConfig.INSTALL_INSTRUCTIONS_LINK.contains(
+                                                    "breezy",
+                                                    ignoreCase = true
+                                                ) ||
+                                                    BreezyWeather.instance.isSignedByBreezy ||
+                                                    BreezyWeather.instance.debugMode
+                                                )
+                                        ) {
                                             TextButton(
                                                 modifier = Modifier.align(Alignment.CenterHorizontally),
                                                 onClick = {

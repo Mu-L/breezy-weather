@@ -23,6 +23,7 @@ import breezyweather.domain.source.SourceContinent
 import breezyweather.domain.source.SourceFeature
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
+import org.breezyweather.BreezyWeather
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
 import org.breezyweather.common.exceptions.InvalidLocationException
@@ -72,8 +73,8 @@ class NominatimService @Inject constructor(
             .build()
             .create(NominatimApi::class.java)
     }
-    private val userAgent =
-        "${context.getString(R.string.brand_name)}/${BuildConfig.VERSION_NAME} ${BuildConfig.REPORT_ISSUE}"
+
+    private val userAgent = BreezyWeather.instance.userAgent
 
     override fun requestLocationSearch(
         context: Context,
@@ -251,7 +252,7 @@ class NominatimService @Inject constructor(
 
     // This source needs to know how to contact the app maintainers
     // Make sure the app was compiled with the matching property in gradle.properties if failing here
-    override val isConfigured = BuildConfig.REPORT_ISSUE.isNotEmpty()
+    override val isConfigured = BuildConfig.REPORT_ISSUE.isNotEmpty() && BreezyWeather.instance.userAgent.isNotEmpty()
     override val isRestricted = false
 
     private var instance: String?

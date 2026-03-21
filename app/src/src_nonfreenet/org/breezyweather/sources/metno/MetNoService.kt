@@ -36,6 +36,7 @@ import breezyweather.domain.weather.wrappers.TemperatureWrapper
 import breezyweather.domain.weather.wrappers.WeatherWrapper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
+import org.breezyweather.BreezyWeather
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
 import org.breezyweather.common.extensions.code
@@ -84,8 +85,8 @@ class MetNoService @Inject constructor(
     override val attributionLinks = mapOf(
         "MET Norway" to "https://www.met.no/"
     )
-    private val userAgent =
-        "${context.getString(R.string.brand_name)}/${BuildConfig.VERSION_NAME} ${BuildConfig.REPORT_ISSUE}"
+
+    private val userAgent = BreezyWeather.instance.userAgent
 
     override fun requestWeather(
         context: Context,

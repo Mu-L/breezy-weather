@@ -24,10 +24,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import dagger.hilt.android.AndroidEntryPoint
+import org.breezyweather.BreezyWeather
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
 import org.breezyweather.common.activities.BreezyActivity
@@ -49,7 +51,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PrivacyPolicyActivity : BreezyActivity() {
 
-    @Inject lateinit var sourceManager: SourceManager
+    @Inject
+    lateinit var sourceManager: SourceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +66,7 @@ class PrivacyPolicyActivity : BreezyActivity() {
 
     @Composable
     private fun ContentView() {
+        val context = LocalContext.current
         val scrollBehavior = generateCollapsedScrollBehavior()
         val uriHandler = LocalUriHandler.current
         val sources = remember {
@@ -89,15 +93,26 @@ class PrivacyPolicyActivity : BreezyActivity() {
             PreferenceScreen(
                 paddingValues = paddingValues.plus(PaddingValues(horizontal = dimensionResource(R.dimen.normal_margin)))
             ) {
-                clickablePreferenceItem(R.string.brand_name) { id ->
-                    val url = BuildConfig.PRIVACY_POLICY_LINK
-                    PreferenceViewWithCard(
-                        title = stringResource(id),
-                        summary = url,
-                        isFirst = true
-                    ) {
-                        if (url.startsWith("https://")) {
-                            uriHandler.openUri(url)
+                if (!context.getString(R.string.brand_name).contains("breezy", ignoreCase = true) ||
+                    BreezyWeather.instance.isSignedByBreezy ||
+                    BreezyWeather.instance.debugMode
+                ) {
+                    clickablePreferenceItem(R.string.brand_name) { id ->
+                        val url = BuildConfig.PRIVACY_POLICY_LINK
+                        PreferenceViewWithCard(
+                            title = stringResource(id),
+                            summary = url,
+                            isFirst = true
+                        ) {
+                            if (url.startsWith("https://") &&
+                                (
+                                    !url.contains("breezy", ignoreCase = true) ||
+                                        BreezyWeather.instance.isSignedByBreezy ||
+                                        BreezyWeather.instance.debugMode
+                                    )
+                            ) {
+                                uriHandler.openUri(url)
+                            }
                         }
                     }
                 }

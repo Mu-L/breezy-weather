@@ -37,6 +37,7 @@ import androidx.core.app.ActivityCompat
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.collections.immutable.ImmutableList
+import org.breezyweather.BreezyWeather
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
 import org.breezyweather.common.extensions.openApplicationDetailsSettings
@@ -127,7 +128,13 @@ fun LocationSettingsScreen(
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 style = MaterialTheme.typography.bodyMedium
                             )
-                            if (BuildConfig.INSTALL_INSTRUCTIONS_LINK.startsWith("https://")) {
+                            if (BuildConfig.INSTALL_INSTRUCTIONS_LINK.startsWith("https://") &&
+                                (
+                                    !BuildConfig.INSTALL_INSTRUCTIONS_LINK.contains("breezy", ignoreCase = true) ||
+                                        BreezyWeather.instance.isSignedByBreezy ||
+                                        BreezyWeather.instance.debugMode
+                                    )
+                            ) {
                                 TextButton(
                                     modifier = Modifier.align(Alignment.CenterHorizontally),
                                     onClick = {
@@ -295,6 +302,7 @@ fun LocationSettingsScreen(
                                 )
                             }
                         }
+
                         is EditTextPreference -> {
                             editTextPreferenceItem(preference.titleId) { id ->
                                 EditTextPreferenceViewWithCard(

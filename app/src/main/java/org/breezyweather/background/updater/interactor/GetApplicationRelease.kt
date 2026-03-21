@@ -98,5 +98,6 @@ class GetApplicationRelease @Inject constructor(
         data class NewUpdate(val release: Release) : Result
         data object NoNewUpdate : Result
         data object OsTooOld : Result
+        data object UnsupportedFeature : Result
     }
 }

@@ -30,6 +30,7 @@ import dagger.hilt.android.HiltAndroidApp
 import org.breezyweather.common.activities.BreezyActivity
 import org.breezyweather.common.extensions.uiModeManager
 import org.breezyweather.common.extensions.workManager
+import org.breezyweather.common.utils.AndroidSignatureFinder
 import org.breezyweather.common.utils.helpers.LogHelper
 import org.breezyweather.domain.settings.SettingsManager
 import org.breezyweather.remoteviews.Notifications
@@ -72,7 +73,8 @@ class BreezyWeather : Application(), Configuration.Provider {
         applicationInfo != null && applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
     }
 
-    @Inject lateinit var workerFactory: HiltWorkerFactory
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
 
     override fun onCreate() {
         super.onCreate()
@@ -155,7 +157,56 @@ class BreezyWeather : Application(), Configuration.Provider {
         get() = BuildConfig.FLAVOR != "freenet" &&
             BuildConfig.GITHUB_REPO.isNotEmpty() &&
             BuildConfig.GITHUB_ORG.isNotEmpty() &&
-            BuildConfig.GITHUB_RELEASE_PREFIX.isNotEmpty()
+            BuildConfig.GITHUB_RELEASE_PREFIX.isNotEmpty() &&
+            (
+                (
+                    !BuildConfig.GITHUB_ORG.contains("breezy", ignoreCase = true) &&
+                        !BuildConfig.GITHUB_RELEASE_PREFIX.contains("breezy", ignoreCase = true) &&
+                        !BuildConfig.GITHUB_REPO.contains("breezy", ignoreCase = true)
+                    ) ||
+                    isSignedByBreezy ||
+                    debugMode
+                )
+
+    /*
+     * /!\ Changing the below logic to impersonate Breezy Weather is a violation of the LGPL license that was granted
+     * to you.
+     * You're allowed to make a fork, but you're NOT allowed to impersonate the "Breezy Weather" app.
+     * Use your own app name. See instructions in the README file, License section.
+     */
+    val isSignedByBreezy: Boolean
+        get() {
+            return AndroidSignatureFinder.getAndroidSignatures(packageName, packageManager).any {
+                it == "29:D4:35:F7:0A:A9:AE:C3:C1:FA:FF:7F:7F:FA:6E:15:78:50:88:D8:7F:06:EC:FC:AB:9C:3C:C6:2D:C2:69:D8"
+            }
+        }
+
+    val isImpersonatingBreezyWeather: Boolean
+        get() {
+            return (
+                getString(R.string.brand_name).contains("breezy", ignoreCase = true) ||
+                    BuildConfig.APPLICATION_ID.contains("breezy", ignoreCase = true)
+                ) &&
+                !isSignedByBreezy &&
+                !debugMode
+        }
+
+    /*
+     * Returns a User-Agent sources can use
+     */
+    val userAgent: String
+        get() {
+            return if (!getString(R.string.brand_name).contains("breezy", ignoreCase = true) ||
+                isSignedByBreezy ||
+                debugMode
+            ) {
+                "${getString(R.string.brand_name)}/${BuildConfig.VERSION_NAME} ${BuildConfig.REPORT_ISSUE}"
+            } else {
+                // Do not return anything if someone is trying to impersonate Breezy Weather
+                // or we would be made responsible for their app calls
+                ""
+            }
+        }
 
     override val workManagerConfiguration
         get() = Configuration.Builder()

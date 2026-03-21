@@ -46,6 +46,7 @@ import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableMap
+import org.breezyweather.BreezyWeather
 import org.breezyweather.BuildConfig
 import org.breezyweather.R
 import org.breezyweather.common.extensions.currentLocale
@@ -467,7 +468,13 @@ fun SecondarySourcesPreference(
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 style = MaterialTheme.typography.bodyMedium
                             )
-                            if (BuildConfig.INSTALL_INSTRUCTIONS_LINK.startsWith("https://")) {
+                            if (BuildConfig.INSTALL_INSTRUCTIONS_LINK.startsWith("https://") &&
+                                (
+                                    !BuildConfig.INSTALL_INSTRUCTIONS_LINK.contains("breezy", ignoreCase = true) ||
+                                        BreezyWeather.instance.isSignedByBreezy ||
+                                        BreezyWeather.instance.debugMode
+                                    )
+                            ) {
                                 TextButton(
                                     modifier = Modifier.align(Alignment.CenterHorizontally),
                                     onClick = {

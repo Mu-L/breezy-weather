@@ -112,7 +112,14 @@ internal fun AboutScreen(
     }
 
     val contactLinks = buildList {
-        BuildConfig.SOURCE_CODE_LINK.takeIf { it.startsWith("https://") }?.let {
+        BuildConfig.SOURCE_CODE_LINK.takeIf {
+            it.startsWith("https://") &&
+                (
+                    !BuildConfig.SOURCE_CODE_LINK.contains("breezy", ignoreCase = true) ||
+                        BreezyWeather.instance.isSignedByBreezy ||
+                        BreezyWeather.instance.debugMode
+                    )
+        }?.let {
             add(
                 AboutAppLinkItem(
                     iconId = R.drawable.ic_code,
@@ -123,7 +130,14 @@ internal fun AboutScreen(
                 }
             )
         }
-        BuildConfig.CONTACT_MATRIX.takeIf { it.startsWith("https://") }?.let {
+        BuildConfig.CONTACT_MATRIX.takeIf {
+            it.startsWith("https://") &&
+                (
+                    !BuildConfig.CONTACT_MATRIX.contains("breezy", ignoreCase = true) ||
+                        BreezyWeather.instance.isSignedByBreezy ||
+                        BreezyWeather.instance.debugMode
+                    )
+        }?.let {
             add(
                 AboutAppLinkItem(
                     iconId = R.drawable.ic_forum,
@@ -137,7 +151,15 @@ internal fun AboutScreen(
     }
 
     val isUpdateCheckerEnabled = remember {
-        BreezyWeather.instance.isGitHubUpdateCheckerEnabled || BuildConfig.RELEASES_LINK.isNotEmpty()
+        BreezyWeather.instance.isGitHubUpdateCheckerEnabled ||
+            (
+                BuildConfig.RELEASES_LINK.isNotEmpty() &&
+                    (
+                        !BuildConfig.RELEASES_LINK.contains("breezy", ignoreCase = true) ||
+                            BreezyWeather.instance.isSignedByBreezy ||
+                            BreezyWeather.instance.debugMode
+                        )
+                )
     }
 
     Material3Scaffold(
@@ -180,6 +202,7 @@ internal fun AboutScreen(
                                             tint = MaterialTheme.colorScheme.onSurface
                                         )
                                     }
+
                                     true -> {
                                         CircularProgressIndicator(
                                             modifier = Modifier.size(24.dp),
@@ -222,6 +245,7 @@ internal fun AboutScreen(
                                                             context.getString(R.string.about_no_new_updates)
                                                         )
                                                     }
+
                                                     is GetApplicationRelease.Result.OsTooOld -> {
                                                         SnackbarHelper.showSnackbar(
                                                             context.getString(
@@ -229,6 +253,7 @@ internal fun AboutScreen(
                                                             )
                                                         )
                                                     }
+
                                                     else -> {}
                                                 }
                                             } catch (e: Exception) {

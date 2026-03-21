@@ -35,7 +35,7 @@ import breezyweather.domain.weather.wrappers.TemperatureWrapper
 import breezyweather.domain.weather.wrappers.WeatherWrapper
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Observable
-import org.breezyweather.BuildConfig
+import org.breezyweather.BreezyWeather
 import org.breezyweather.R
 import org.breezyweather.common.exceptions.InvalidLocationException
 import org.breezyweather.common.exceptions.OutdatedServerDataException
@@ -94,8 +94,8 @@ class NwsService @Inject constructor(
     override val attributionLinks = mapOf(
         weatherAttribution to "https://www.weather.gov/"
     )
-    private val userAgent =
-        "${context.getString(R.string.brand_name)}/${BuildConfig.VERSION_NAME} ${BuildConfig.REPORT_ISSUE}"
+
+    private val userAgent = BreezyWeather.instance.userAgent
 
     override fun requestWeather(
         context: Context,

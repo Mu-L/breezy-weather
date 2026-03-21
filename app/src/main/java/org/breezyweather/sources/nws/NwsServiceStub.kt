@@ -20,6 +20,7 @@ import android.content.Context
 import breezyweather.domain.location.model.Location
 import breezyweather.domain.source.SourceContinent
 import breezyweather.domain.source.SourceFeature
+import org.breezyweather.BreezyWeather
 import org.breezyweather.BuildConfig
 import org.breezyweather.common.extensions.currentLocale
 import org.breezyweather.common.extensions.getCountryName
@@ -59,7 +60,7 @@ abstract class NwsServiceStub(context: Context) :
     ): Boolean {
         // This source needs to know how to contact the app maintainers
         // Make sure the app was compiled with the matching property in gradle.properties if failing here
-        if (BuildConfig.REPORT_ISSUE.isEmpty()) return false
+        if (BuildConfig.REPORT_ISSUE.isEmpty() || BreezyWeather.instance.userAgent.isEmpty()) return false
 
         return setOf(
             "US",

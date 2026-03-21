@@ -140,6 +140,9 @@ deleteLocation:
 DELETE FROM locations
 WHERE formatted_id = :formattedId;
 
+deleteAll:
+DELETE FROM locations;
+
 deleteAllNonMatchingLocations:
 DELETE FROM locations
 WHERE formatted_id NOT IN :formattedIds;

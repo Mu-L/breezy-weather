@@ -292,4 +292,10 @@ class LocationRepository(
             locationsQueries.deleteLocation(formattedId)
         }
     }
+
+    suspend fun deleteAll() {
+        handler.await {
+            locationsQueries.deleteAll()
+        }
+    }
 }

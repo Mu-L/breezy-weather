@@ -229,23 +229,30 @@ class MainActivityViewModel @Inject constructor(
         _indicator.value = Indicator(total = newValid.size, index = index)
 
         // check difference in valid locations.
-        val diffInValidLocations = validLocationList.value != newValid
-        if (diffInValidLocations ||
-            (currentLocation.value?.location?.formattedId ?: "") != newValid[index].formattedId
-        ) {
-            // update current location.
-            setCurrentLocation(newValid[index])
+        if (newValid.isNotEmpty()) {
+            val diffInValidLocations = validLocationList.value != newValid
+            if (diffInValidLocations ||
+                (currentLocation.value?.location?.formattedId ?: "") != newValid[index].formattedId
+            ) {
+                // update current location.
+                setCurrentLocation(newValid[index])
 
-            _validLocationList.value = newValid
+                _validLocationList.value = newValid
+            } else {
+                // update current location.
+                setCurrentLocation(newValid[index])
+            }
         } else {
-            // update current location.
-            setCurrentLocation(newValid[index])
+            setCurrentLocation(null)
+            _validLocationList.value = newValid
         }
     }
 
-    private fun setCurrentLocation(location: Location) {
-        _currentLocation.value = DayNightLocation(location = location)
-        savedStateHandle[KEY_FORMATTED_ID] = location.formattedId
+    private fun setCurrentLocation(location: Location?) {
+        _currentLocation.value = location?.let {
+            DayNightLocation(location = it)
+        }
+        savedStateHandle[KEY_FORMATTED_ID] = location?.formattedId
 
         checkToUpdateCurrentLocation()
     }
@@ -592,6 +599,17 @@ class MainActivityViewModel @Inject constructor(
         }
 
         return location
+    }
+
+    fun emptyLocationListFake() {
+        updateInnerData(emptyList())
+    }
+
+    fun deleteAllLocations() {
+        updateInnerData(emptyList())
+        viewModelScope.launchIO {
+            locationRepository.deleteAll()
+        }
     }
 
     // MARK: - getter.

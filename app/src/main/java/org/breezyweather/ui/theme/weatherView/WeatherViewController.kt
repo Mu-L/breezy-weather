@@ -61,7 +61,7 @@ object WeatherViewController {
         WeatherCode.HAIL -> WeatherView.WEATHER_KIND_HAIL
         WeatherCode.THUNDER -> WeatherView.WEATHER_KIND_THUNDER
         WeatherCode.THUNDERSTORM -> WeatherView.WEATHER_KIND_THUNDERSTORM
-        else -> WeatherView.WEATHER_KIND_CLEAR
+        else -> WeatherView.WEATHER_KIND_NULL
     }
 
     fun getWeatherText(weatherCode: WeatherCode): String {
