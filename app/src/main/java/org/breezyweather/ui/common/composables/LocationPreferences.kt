@@ -853,7 +853,8 @@ fun SecondarySourcesPreference(
                             alertSource = alertSource.value,
                             normalsSource = normalsSource.value,
                             reverseGeocodingSource = reverseGeocodingSource.value,
-                            needsGeocodeRefresh = hasChangedReverseGeocodingSource.value && location.isCurrentPosition,
+                            needsGeocodeRefresh = (!location.isCurrentPosition && location.needsGeocodeRefresh) ||
+                                (hasChangedReverseGeocodingSource.value && location.isCurrentPosition),
                             // TODO: Will trigger a full refresh which we should avoid
                             // if we only change a secondary weather source
                             weather = location.weather?.let { weather ->
