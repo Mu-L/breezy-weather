@@ -17,6 +17,7 @@
 - Infoplaza - Added as a new worldwide forecast, current, minutely and normals source (@SKBotNL)
 - KNMI - Add textual representation of weather conditions (@willem640)
 - Météo-France/OpenWeather - Improve total precipitation computing (@chunshek)
+- Nominatim - Improve address lookup, and add support for districts for a more detailed result
 - Pirate Weather - Fix weather texts showing temperatures in the wrong unit (@chunshek)
 - SMG - Fix missing current data (@chunshek)
 

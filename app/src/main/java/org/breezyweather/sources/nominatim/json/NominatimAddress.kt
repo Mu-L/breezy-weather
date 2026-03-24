@@ -24,13 +24,40 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class NominatimAddress(
-    val village: String?, // District
-    val town: String?, // City
-    val municipality: String?, // Admin 3
-    val county: String?, // Admin 2
-    val state: String?, // Admin 1
+    // Country
     val country: String?,
     @SerialName("country_code") val countryCode: String?,
+
+    // Admin1
+    val state: String?,
+
+    // Admin2
+    val county: String?,
+
+    // Admin3
+    val municipality: String?,
+
+    // Admin4
+    val village: String?,
+    val town: String?,
+    val city: String?,
+
+    // Admin5
+    @SerialName("city_district") val cityDistrict: String?,
+    val district: String?,
+    val borough: String?,
+    val suburb: String?,
+    val subdivision: String?,
+
+    val hamlet: String?,
+    val croft: String?,
+    @SerialName("isolated_dwelling") val isolatedDwelling: String?,
+
+    val neighbourhood: String?,
+    val allotments: String?,
+    val quarter: String?,
+
+    // ISO levels
     @SerialName("ISO3166-2-lvl3") val isoLvl3: String?,
     @SerialName("ISO3166-2-lvl4") val isoLvl4: String?,
     @SerialName("ISO3166-2-lvl5") val isoLvl5: String?,

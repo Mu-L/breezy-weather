@@ -127,9 +127,21 @@ class NominatimService @Inject constructor(
                 admin2 = locationResult.address.county,
                 admin2Code = getAdmin2CodeForCountry(locationResult.address, countryCode),
                 admin3 = locationResult.address.municipality,
-                city = locationResult.address.town ?: locationResult.name,
-                cityCode = locationResult.placeId?.toString(),
-                district = locationResult.address.village
+                city = locationResult.address.village
+                    ?: locationResult.address.town
+                    ?: locationResult.address.city,
+                district = locationResult.address.neighbourhood
+                    ?: locationResult.address.allotments
+                    ?: locationResult.address.quarter
+                    ?: locationResult.address.hamlet
+                    ?: locationResult.address.croft
+                    ?: locationResult.address.isolatedDwelling
+                    ?: locationResult.address.cityDistrict
+                    ?: locationResult.address.district
+                    ?: locationResult.address.borough
+                    ?: locationResult.address.suburb
+                    ?: locationResult.address.subdivision,
+                cityCode = locationResult.placeId?.toString()
             )
         }
     }
