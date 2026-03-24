@@ -42,11 +42,11 @@ abstract class AtmoFranceServiceStub() :
     override val continent = SourceContinent.EUROPE
 
     override val supportedFeatures = mapOf(
-        SourceFeature.POLLEN to "Atmo France • data.gouv.fr (Etalab 2.0)"
+        SourceFeature.POLLEN to "Atmo France • Géoplateforme (Géoservices IGN) (Etalab 2.0)"
     )
     override val attributionLinks = mapOf(
         "Atmo France" to "https://www.atmo-france.org/",
-        "data.gouv.fr" to "https://www.data.gouv.fr/"
+        "Géoplateforme (Géoservices IGN)" to "https://geoservices.ign.fr/services-geoplateforme"
     )
 
     override fun isFeatureSupportedForLocation(
