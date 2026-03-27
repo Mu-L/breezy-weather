@@ -34,6 +34,7 @@ import org.breezyweather.sources.gadgetbridge.json.GadgetbridgeAirQuality
 import org.breezyweather.sources.gadgetbridge.json.GadgetbridgeDailyForecast
 import org.breezyweather.sources.gadgetbridge.json.GadgetbridgeData
 import org.breezyweather.sources.gadgetbridge.json.GadgetbridgeHourlyForecast
+import org.breezyweather.unit.ratio.Ratio
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -81,7 +82,7 @@ class GadgetbridgeService @Inject constructor() : BroadcastSource {
             timestamp = location.weather?.base?.forecastUpdateTime?.time?.div(1000)?.toInt(),
             location = location.getPlace(context),
             currentTemp = current?.temperature?.temperature?.inKelvins?.roundToInt(),
-            currentConditionCode = getWeatherCode(current?.weatherCode),
+            currentConditionCode = getWeatherCode(current?.weatherCode, current?.cloudCover),
             currentCondition = current?.weatherText,
             currentHumidity = current?.relativeHumidity?.inPercent?.roundToInt(),
             windSpeed = current?.wind?.speed?.inKilometersPerHour?.toFloat(),
@@ -122,7 +123,7 @@ class GadgetbridgeService @Inject constructor() : BroadcastSource {
                 .maxByOrNull { it?.speed?.value ?: Long.MIN_VALUE }
 
             GadgetbridgeDailyForecast(
-                conditionCode = getWeatherCode(day.day?.weatherCode),
+                conditionCode = getWeatherCode(day.day?.weatherCode, day.cloudCover?.average),
                 maxTemp = day.day?.temperature?.temperature?.inKelvins?.roundToInt(),
                 minTemp = day.night?.temperature?.temperature?.inKelvins?.roundToInt(),
                 humidity = day.relativeHumidity?.average?.inPercent?.roundToInt(),
@@ -173,7 +174,7 @@ class GadgetbridgeService @Inject constructor() : BroadcastSource {
             GadgetbridgeHourlyForecast(
                 timestamp = hour.date.time.div(1000).toInt(),
                 temp = hour.temperature?.temperature?.inKelvins?.roundToInt(),
-                conditionCode = getWeatherCode(hour.weatherCode),
+                conditionCode = getWeatherCode(hour.weatherCode, hour.cloudCover),
                 humidity = hour.relativeHumidity?.inPercent?.roundToInt(),
                 windSpeed = hour.wind?.speed?.inKilometersPerHour?.toFloat(),
                 windDirection = hour.wind?.degree?.roundToInt(),
@@ -183,18 +184,43 @@ class GadgetbridgeService @Inject constructor() : BroadcastSource {
         }
     }
 
-    private fun getWeatherCode(code: WeatherCode?): Int {
+    /**
+     * Return Gadgetbridge weather code based on OWM list:
+     * https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2
+     *
+     * Since OWM code list is more complete, we try to make a more detailed icon from the data (cloud cover)
+     * TODO: Maybe add precipitation quantity. Take into account if it is current/hourly or half day
+     */
+    private fun getWeatherCode(
+        code: WeatherCode?,
+        cloudCover: Ratio?
+    ): Int {
         return when (code) {
-            WeatherCode.CLEAR -> 800
-            WeatherCode.PARTLY_CLOUDY -> 801
-            WeatherCode.CLOUDY -> 803
+            WeatherCode.CLEAR, WeatherCode.PARTLY_CLOUDY, WeatherCode.CLOUDY -> {
+                if (cloudCover !== null && cloudCover.inPercent in 0.0..100.0) {
+                    when (cloudCover.inPercent) {
+                        in 0.0..10.0 -> 800
+                        in 10.0..25.0 -> 801
+                        in 25.0..50.0 -> 802
+                        in 50.0..85.0 -> 803
+                        in 85.0..100.0 -> 804
+                        else -> 802 // Not possible
+                    }
+                } else {
+                    when (code) {
+                        WeatherCode.CLEAR -> 800
+                        WeatherCode.PARTLY_CLOUDY -> 802
+                        WeatherCode.CLOUDY -> 804
+                    }
+                }
+            }
             WeatherCode.RAIN -> 500
             WeatherCode.SNOW -> 600
             WeatherCode.WIND -> 771
             WeatherCode.FOG -> 741
-            WeatherCode.HAZE -> 751
-            WeatherCode.SLEET -> 611
-            WeatherCode.HAIL -> 511
+            WeatherCode.HAZE -> 721
+            WeatherCode.SLEET -> 616
+            WeatherCode.HAIL -> 611
             WeatherCode.THUNDER -> 210
             WeatherCode.THUNDERSTORM -> 211
             else -> 3200
