@@ -72,7 +72,8 @@ After merging a new source, the following things need to be done:
 1) Update `CHANGELOG.md`
 2) Update `docs/SOURCES.md`
 3) Update `docs/COVERAGE.md`
-4) Update `fastlane/metadata/android/{en-US,fr,it}/full_description.txt`
+4) Update `fastlane/metadata/android/{*}/full_description.txt` (bulk replace in all languages)
+5) Update the regex on Weblate
 
 
 # Decode crash logs from users
