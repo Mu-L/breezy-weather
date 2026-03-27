@@ -425,7 +425,6 @@
     <string name="settings_unavailable_no_background_updates">Μη διαθέσιμο, ενεργοποίησ πρώτα τις ενημερώσεις στο παρασκήνιο</string>
     <string name="notification_channel_background_services">Υπηρεσίες παρασκηνίου</string>
     <string name="notification_channel_crash_logs">Καταγραφές σφαλμάτων</string>
-    <string name="notification_update_error">%d ενημερώσεις απέτυχαν</string>
     <string name="common_weather_text_rain_showers">Μπόρα</string>
     <string name="common_weather_text_drizzle_heavy">Έντονες ψεκάδες</string>
     <string name="settings_notifications_forecast_time_tomorrow_title">Ώρα ειδοποίησης για την πρόβλεψη της επόμενης ημέρας</string>

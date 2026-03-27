@@ -302,7 +302,6 @@
     <string name="settings_background_updates_battery_optimization_disabled">Optimalizace baterie je již vypnutá.</string>
     <string name="settings_notifications_forecast_tomorrow_title">Oznámení pro předpověď na další den</string>
     <string name="settings_debug_dump_crash_logs_title">Sdílet protokoly o pádech</string>
-    <string name="notification_update_error">%d aktualizace se nezdařila/y</string>
     <string name="about_matrix">Matrix místnost</string>
     <string name="common_weather_text_overcast">Zataženo</string>
     <string name="settings_notifications_forecast_time_tomorrow_title">Čas oznámení předpovědi na další den</string>

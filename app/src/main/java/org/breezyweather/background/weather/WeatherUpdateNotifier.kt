@@ -95,7 +95,7 @@ class WeatherUpdateNotifier(
             Notifications.ID_WEATHER_ERROR,
             Notifications.CHANNEL_BACKGROUND
         ) {
-            setContentTitle(context.resources.getString(R.string.notification_update_error, failed))
+            setContentTitle(context.resources.getQuantityString(R.plurals.notification_update_error, failed, failed))
             setContentText(context.getString(R.string.action_show_errors))
             setSmallIcon(R.drawable.ic_running_in_background)
 

@@ -235,7 +235,6 @@
     <string name="settings_modules_monochrome_icons_title">Ícones monocromáticos</string>
     <string name="settings_modules_section_widgets_in_use">Widgets em uso</string>
     <string name="settings_items_drag_to_sort">Toque para arrastar os itens da lista para classificar</string>
-    <string name="notification_update_error">%d falha na(s) atualização(ões)</string>
     <string name="locations">Localizações</string>
     <string name="location_message_search_failed">A procura da localização falhou</string>
     <string name="action_edit">Editar</string>

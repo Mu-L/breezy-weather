@@ -393,7 +393,6 @@
     <string name="settings_color_day_always">Завжди день</string>
     <string name="settings_color_night_always">Завжди ніч</string>
     <string name="notification_channel_forecast">Прогноз</string>
-    <string name="notification_update_error">Не вдалося виконати %d оновлення(ень)</string>
     <string name="notification_style_cities">Міста</string>
     <string name="about_source_code">Вихідний код</string>
     <string name="common_weather_text_rain_freezing_heavy">Сильний крижаний дощ</string>

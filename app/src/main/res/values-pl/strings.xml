@@ -417,7 +417,6 @@
     <string name="settings_modules_live_wallpaper_summary">Ustaw animację pogody jako tapetę</string>
     <string name="settings_modules_week_icon_mode_title">Ikona wyświetlana w widokach tygodniowych</string>
     <string name="settings_debug_dump_crash_logs_title">Udostępnij dzienniki awarii</string>
-    <string name="notification_update_error">Aktualizacja %d nie powiodła się</string>
     <string name="settings_notifications_forecast_time_tomorrow_title">Czas powiadomienia o prognozie na następny dzień</string>
     <string name="common_weather_text_mostly_clear">Przeważnie bezchmurnie</string>
     <string name="openmeteo_weather_text_thunderstorm_slight_or_moderate">Lekka lub umiarkowana burza z piorunami</string>

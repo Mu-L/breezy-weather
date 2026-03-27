@@ -717,7 +717,6 @@
     <string name="settings_color_app">앱 따름</string>
     <string name="settings_invalid_syntax">유효하지 않은 문법</string>
     <string name="notification_channel_app_updates">앱 업데이트</string>
-    <string name="notification_update_error">업데이트 %d건 실패</string>
     <string name="notification_precipitation_continuing">강수</string>
     <string name="notification_precipitation_starting">강수 예정</string>
     <string name="notification_precipitation_starting_desc">%s에 강수 시작 예상</string>

@@ -432,7 +432,6 @@
     <string name="common_weather_text_rain_snow_mixed_showers_heavy">Kraftiga snöblandade regnskurar</string>
     <string name="common_weather_text_rain_showers">Regnskurar</string>
     <string name="settings_location_access_permission_already_granted">Behörighet redan beviljad</string>
-    <string name="notification_update_error">%d uppdatering(ar) misslyckades</string>
     <string name="settings_location_access_switch_title">Platsåtkomst</string>
     <string name="weather_api_unauthorized_title">API-åtkomst ej auktoriserad</string>
     <string name="notification_channel_widget">Widget</string>

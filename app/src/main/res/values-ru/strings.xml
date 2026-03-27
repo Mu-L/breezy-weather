@@ -411,7 +411,6 @@
     <string name="message_server_timeout">Истекло время запроса</string>
     <string name="message_parsing_error_title">Не удалось проанализировать данные о погоде</string>
     <string name="message_parsing_error_content">Убедитесь, что вы обновили приложение до последней версии. Сервер может быть временно недоступен, в этом случае повторите попытку позже. Если проблема не устранена, создайте дамп журнала сбоев из настроек отладки и сообщите о проблеме на GitHub.</string>
-    <string name="notification_update_error">%d обновление(ий) не удалось</string>
     <string name="message_source_not_installed_error_title">Источник больше не доступен</string>
     <string name="temperature_degree_day_cooling">Градусо-день охладительного сезона</string>
     <string name="setting_weather_source_accu_hours">Часы</string>

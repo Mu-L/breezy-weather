@@ -451,7 +451,6 @@
     <string name="pollen_level_0">Cap</string>
     <string name="settings_location_access_permission_already_granted">Permís ja concedit</string>
     <string name="ephemeris_moonrise_at">Sortida de la lluna a les %s</string>
-    <string name="notification_update_error">%d actualització(ns) fallida(es)</string>
     <string name="settings_location_access_switch_title">Accés a la ubicació</string>
     <string name="weather_api_unauthorized_title">Accés a l’API no autoritzat</string>
     <string name="notification_channel_widget">Giny</string>

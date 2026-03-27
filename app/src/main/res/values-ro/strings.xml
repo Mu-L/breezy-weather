@@ -406,7 +406,6 @@
     <string name="air_quality_so2_full">Dioxid de sulf (%s)</string>
     <string name="action_show_errors">Apasă pentru a vedea detalii</string>
     <string name="location_search_no_results">%1$s nu poate găsi %2$s</string>
-    <string name="notification_update_error">%d actualizări eșuate</string>
     <string name="settings_background_updates_refresh_skip_when_battery_low">Ignorați când bateria este descărcată</string>
     <string name="settings_source_api_key">Cheie API</string>
     <string name="message_server_timeout">Cererea a expirat</string>

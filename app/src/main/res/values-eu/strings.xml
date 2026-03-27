@@ -278,7 +278,6 @@
     <string name="notification_channel_alerts">Alertak</string>
     <string name="notification_channel_background_services">Bigarren planoko zerbitzuak</string>
     <string name="notification_running_in_background">Bigarren planoan korrika eguneratzen jarraitzeko</string>
-    <string name="notification_update_error">%d eguneraketa(k) huts egin du</string>
     <string name="notification_style_native">Natiboa</string>
     <string name="notification_style_cities">Hiriak</string>
     <string name="about_app">Aplikazioari buruz</string>
