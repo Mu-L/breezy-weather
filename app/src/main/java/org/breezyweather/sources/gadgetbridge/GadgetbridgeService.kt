@@ -193,7 +193,7 @@ class GadgetbridgeService @Inject constructor() : BroadcastSource {
      */
     private fun getWeatherCode(
         code: WeatherCode?,
-        cloudCover: Ratio?
+        cloudCover: Ratio?,
     ): Int {
         return when (code) {
             WeatherCode.CLEAR, WeatherCode.PARTLY_CLOUDY, WeatherCode.CLOUDY -> {
