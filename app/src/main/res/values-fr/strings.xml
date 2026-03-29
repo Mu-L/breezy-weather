@@ -610,6 +610,7 @@
     <string name="settings_main_section_options">Options</string>
     <string name="settings_main_threshold_lines_on_charts">Lignes de seuil sur les graphiques</string>
     <string name="settings_main_section_animations">Animations</string>
+    <string name="settings_main_background_title">Arrière-plan selon météo</string>
     <string name="settings_main_background_animation_title">Animation de l’arrière-plan</string>
     <string name="settings_main_background_animation_enabled">Activée</string>
     <string name="settings_main_background_animation_disabled">Désactivée</string>

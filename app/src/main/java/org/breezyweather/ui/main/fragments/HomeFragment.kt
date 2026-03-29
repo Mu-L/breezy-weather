@@ -402,7 +402,11 @@ class HomeFragment : MainModuleFragment() {
     private fun updatePreviewSubviews() {
         val location = viewModel.getValidLocation(previewOffset.value)
         val daylight = WeatherViewController.isDaylight(location)
-        val weatherKind = WeatherViewController.getWeatherKind(location)
+        val backgroundWeatherKind = if (SettingsManager.getInstance(requireContext()).mainScreenBackgroundEnabled) {
+            WeatherViewController.getWeatherKind(location)
+        } else {
+            WeatherView.WEATHER_KIND_NULL
+        }
 
         // Show "current position" icon:
         // - On the left on mobile because it might not be visible on small displays otherwise
@@ -412,14 +416,14 @@ class HomeFragment : MainModuleFragment() {
             (location?.getPlace(requireContext()) ?: "") +
             (if (location?.isCurrentPosition == true && requireContext().isTabletDevice) " ⊙" else "")
 
-        weatherView.setWeather(weatherKind, daylight, requireContext().isDarkMode)
+        weatherView.setWeather(backgroundWeatherKind, daylight, requireContext().isDarkMode)
         binding.refreshLayout.setColorSchemeColors(
             ThemeManager
                 .getInstance(requireContext())
                 .weatherThemeDelegate
                 .getThemeColors(
                     requireContext(),
-                    weatherKind,
+                    WeatherViewController.getWeatherKind(location),
                     daylight
                 )[0]
         )

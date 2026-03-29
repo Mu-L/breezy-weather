@@ -316,6 +316,13 @@ class SettingsManager private constructor(
             )
             .toMutableList()
 
+    var mainScreenBackgroundEnabled: Boolean
+        set(value) {
+            config.edit().putBoolean("main_screen_background", value).apply()
+            notifySettingsChanged()
+        }
+        get() = config.getBoolean("main_screen_background", true)
+
     var isTrendHorizontalLinesEnabled: Boolean
         set(value) {
             config.edit().putBoolean("trend_horizontal_line_switch", value).apply()

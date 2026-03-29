@@ -124,13 +124,24 @@ fun MainScreenSettingsScreen(
             largeSeparatorItem()
 
             sectionHeaderItem(R.string.settings_main_section_options)
+            switchPreferenceItem(R.string.settings_main_background_title) { id ->
+                SwitchPreferenceView(
+                    titleId = id,
+                    summaryOnId = R.string.settings_enabled,
+                    summaryOffId = R.string.settings_disabled,
+                    checked = SettingsManager.getInstance(context).mainScreenBackgroundEnabled,
+                    isFirst = true,
+                    onValueChanged = {
+                        SettingsManager.getInstance(context).mainScreenBackgroundEnabled = it
+                    }
+                )
+            }
             switchPreferenceItem(R.string.settings_main_threshold_lines_on_charts) { id ->
                 SwitchPreferenceView(
                     titleId = id,
                     summaryOnId = R.string.settings_enabled,
                     summaryOffId = R.string.settings_disabled,
                     checked = SettingsManager.getInstance(context).isTrendHorizontalLinesEnabled,
-                    isFirst = true,
                     isLast = true,
                     onValueChanged = {
                         SettingsManager.getInstance(context).isTrendHorizontalLinesEnabled = it

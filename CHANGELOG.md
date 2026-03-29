@@ -6,6 +6,9 @@
 
 # Version 6.2.0 (not yet released)
 
+**New features**
+- Add ability to disable the weather condition background on main screen. You can find it in Settings > Main screen.
+
 **Improvements and fixes**
 - Fix failing to refresh some forecast sources in some cases when the source is not reporting total precipitation
 - Forbid editing locations when weather is refreshing to avoid race condition
