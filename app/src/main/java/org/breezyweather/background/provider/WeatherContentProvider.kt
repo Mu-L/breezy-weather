@@ -319,9 +319,16 @@ class WeatherContentProvider : ContentProvider() {
 
         val regex = Regex("id *= *(-?[0-9.]+)&(-?[0-9.]+)&([a-z]+)")
         val matching = regex.find(selection)
-        if (matching == null) return matrixCursor
-
-        val locationId = "${matching.groups[1]!!.value}&${matching.groups[2]!!.value}&${matching.groups[3]!!.value}"
+        val locationId = if (matching == null) {
+            val regex2 = Regex("id *= *${Location.CURRENT_POSITION_ID}")
+            val matching2 = regex2.find(selection)
+            if (matching2 == null) {
+                return matrixCursor
+            }
+            Location.CURRENT_POSITION_ID
+        } else {
+            "${matching.groups[1]!!.value}&${matching.groups[2]!!.value}&${matching.groups[3]!!.value}"
+        }
 
         val location = runBlocking {
             getLocationRepository(context!!)
