@@ -13,6 +13,7 @@
 - Fix failing to refresh some forecast sources in some cases when the source is not reporting total precipitation
 - Forbid editing locations when weather is refreshing to avoid race condition
 - Fix address lookup not working after changing a source on adding a new location with coordinates input manually (from `geo:` intent)
+- Fix some notifications marked as sensitive (will now show on lockscreen)
 
 **Sources**
 - Atmo France - Use new geocoding services to fix refresh issue for some locations

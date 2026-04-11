@@ -154,6 +154,7 @@ object Notifications {
         intent: PendingIntent,
     ): NotificationCompat.Builder {
         return context.notificationBuilder(CHANNEL_ALERT).apply {
+            setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             setSmallIcon(iconId)
             setContentTitle(title)
             setSubText(subtitle)
@@ -278,6 +279,7 @@ object Notifications {
         notificationId: Int,
     ): Notification {
         return context.notificationBuilder(CHANNEL_ALERT).apply {
+            setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             setSmallIcon(R.drawable.ic_alert)
             setContentTitle(
                 alert.headline?.ifEmpty {

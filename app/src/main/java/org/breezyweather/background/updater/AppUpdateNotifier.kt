@@ -33,7 +33,9 @@ internal class AppUpdateNotifier(
     private val context: Context,
 ) {
 
-    private val notificationBuilder = context.notificationBuilder(Notifications.CHANNEL_APP_UPDATE)
+    private val notificationBuilder = context.notificationBuilder(Notifications.CHANNEL_APP_UPDATE).apply {
+        setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+    }
 
     /**
      * Call to show notification.

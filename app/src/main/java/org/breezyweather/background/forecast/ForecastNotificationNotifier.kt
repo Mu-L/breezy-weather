@@ -44,6 +44,7 @@ class ForecastNotificationNotifier(
 
     private val progressNotificationBuilder = context
         .notificationBuilder(Notifications.CHANNEL_FORECAST) {
+            setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             setSmallIcon(R.drawable.ic_running_in_background)
             setAutoCancel(false)
             setOngoing(true)
@@ -52,6 +53,7 @@ class ForecastNotificationNotifier(
 
     private val completeNotificationBuilder = context
         .notificationBuilder(Notifications.CHANNEL_FORECAST) {
+            setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             setAutoCancel(false)
         }
 
