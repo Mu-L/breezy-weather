@@ -14,6 +14,8 @@
 - Forbid editing locations when weather is refreshing to avoid race condition
 - Fix address lookup not working after changing a source on adding a new location with coordinates input manually (from `geo:` intent)
 - Fix some notifications marked as sensitive (will now show on lockscreen)
+- Fix notification-widget “Use feels like” option only available when using temperature in statusbar
+- Fix notification-widget not always using feels like temperature when the option is enabled
 
 **Sources**
 - Atmo France - Use new geocoding services to fix refresh issue for some locations

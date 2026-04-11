@@ -92,7 +92,6 @@ fun ModulesSettingsScreen(
     onNavigateBack: () -> Unit,
     hasNotificationPermission: Boolean,
     notificationEnabled: Boolean,
-    notificationTemperatureIconEnabled: Boolean,
     postNotificationPermissionEnsurer: (succeedCallback: () -> Unit) -> Unit,
     updateWidgetIfNecessary: (Context) -> Unit,
     updateNotificationIfNecessary: (Context) -> Unit,
@@ -360,8 +359,7 @@ fun ModulesSettingsScreen(
                         .getInstance(context)
                         .isWidgetNotificationUsingFeelsLike,
                     enabled = notificationEnabled &&
-                        hasNotificationPermission &&
-                        notificationTemperatureIconEnabled,
+                        hasNotificationPermission,
                     isLast = true,
                     onValueChanged = {
                         SettingsManager

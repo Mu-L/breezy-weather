@@ -37,6 +37,7 @@ import org.breezyweather.domain.location.model.isDaylight
 import org.breezyweather.domain.settings.SettingsManager
 import org.breezyweather.domain.weather.model.getName
 import org.breezyweather.domain.weather.model.getStrength
+import org.breezyweather.domain.weather.model.getTrendFeelsLikeTemperature
 import org.breezyweather.domain.weather.model.getTrendTemperature
 import org.breezyweather.domain.weather.model.getWeek
 import org.breezyweather.domain.weather.model.isToday
@@ -281,7 +282,12 @@ object WidgetNotificationIMP : AbstractRemoteViewsPresenter() {
                         )
                         setTextViewText(
                             viewId.second,
-                            daily.getTrendTemperature(context, temperatureUnit)
+                            if (isWidgetNotificationUsingFeelsLike) {
+                                daily.getTrendTemperature(context, temperatureUnit)
+                            } else {
+                                daily.getTrendFeelsLikeTemperature(context, temperatureUnit)
+                                    ?: daily.getTrendTemperature(context, temperatureUnit)
+                            }
                         )
                         if (weatherCode != null) {
                             setImageViewUri(
@@ -302,9 +308,14 @@ object WidgetNotificationIMP : AbstractRemoteViewsPresenter() {
             // Loop through 5 next hours
             viewIds.forEachIndexed { i, viewId ->
                 weather.nextHourlyForecast.getOrNull(i)?.let { hourly ->
+                    val temperature = if (isWidgetNotificationUsingFeelsLike) {
+                        hourly.temperature?.feelsLikeTemperature ?: hourly.temperature?.temperature
+                    } else {
+                        hourly.temperature?.temperature
+                    }
                     views.apply {
                         setTextViewText(viewId.first, hourly.date.getHour(location, context))
-                        hourly.temperature?.temperature?.let {
+                        temperature?.let {
                             setTextViewText(
                                 viewId.second,
                                 it.formatMeasure(

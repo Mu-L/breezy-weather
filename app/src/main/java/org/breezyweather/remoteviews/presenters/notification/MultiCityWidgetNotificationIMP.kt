@@ -35,6 +35,7 @@ import org.breezyweather.domain.location.model.isDaylight
 import org.breezyweather.domain.settings.SettingsManager
 import org.breezyweather.domain.weather.model.getName
 import org.breezyweather.domain.weather.model.getStrength
+import org.breezyweather.domain.weather.model.getTrendFeelsLikeTemperature
 import org.breezyweather.domain.weather.model.getTrendTemperature
 import org.breezyweather.remoteviews.Notifications
 import org.breezyweather.remoteviews.presenters.AbstractRemoteViewsPresenter
@@ -262,7 +263,10 @@ object MultiCityWidgetNotificationIMP : AbstractRemoteViewsPresenter() {
                             )
                         )
                     }
-                    setTextViewText(viewId.third, getCityTitle(context, location, temperatureUnit))
+                    setTextViewText(
+                        viewId.third,
+                        getCityTitle(context, location, temperatureUnit, isWidgetNotificationUsingFeelsLike)
+                    )
                 }
             } ?: views.setViewVisibility(viewId.first, View.GONE)
         }
@@ -270,13 +274,25 @@ object MultiCityWidgetNotificationIMP : AbstractRemoteViewsPresenter() {
         return views
     }
 
-    private fun getCityTitle(context: Context, location: Location, temperatureUnit: TemperatureUnit): String {
+    private fun getCityTitle(
+        context: Context,
+        location: Location,
+        temperatureUnit: TemperatureUnit,
+        isWidgetNotificationUsingFeelsLike: Boolean,
+    ): String {
         val builder = StringBuilder(
             location.getPlace(context, true)
         )
         location.weather?.today?.let {
             builder.append(context.getString(org.breezyweather.unit.R.string.locale_separator))
-                .append(it.getTrendTemperature(context, temperatureUnit))
+                .append(
+                    if (isWidgetNotificationUsingFeelsLike) {
+                        it.getTrendFeelsLikeTemperature(context, temperatureUnit)
+                            ?: it.getTrendTemperature(context, temperatureUnit)
+                    } else {
+                        it.getTrendTemperature(context, temperatureUnit)
+                    }
+                )
         }
         return builder.toString()
     }

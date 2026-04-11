@@ -115,3 +115,22 @@ fun Daily.getTrendTemperature(context: Context, temperatureUnit: TemperatureUnit
             unitWidth = org.breezyweather.unit.formatting.UnitWidth.NARROW
         )
 }
+
+fun Daily.getTrendFeelsLikeTemperature(context: Context, temperatureUnit: TemperatureUnit): String? {
+    if (day?.temperature?.feelsLikeTemperature == null || night?.temperature?.feelsLikeTemperature == null) {
+        return null
+    }
+    return day!!.temperature!!.feelsLikeTemperature!!.formatMeasure(
+        context,
+        temperatureUnit,
+        valueWidth = org.breezyweather.unit.formatting.UnitWidth.NARROW,
+        unitWidth = org.breezyweather.unit.formatting.UnitWidth.NARROW
+    ) +
+        "/" +
+        night!!.temperature!!.feelsLikeTemperature!!.formatMeasure(
+            context,
+            temperatureUnit,
+            valueWidth = org.breezyweather.unit.formatting.UnitWidth.NARROW,
+            unitWidth = org.breezyweather.unit.formatting.UnitWidth.NARROW
+        )
+}

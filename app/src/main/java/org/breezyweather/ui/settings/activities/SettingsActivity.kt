@@ -92,9 +92,6 @@ class SettingsActivity : BreezyActivity() {
     private val notificationEnabledState = mutableStateOf(
         SettingsManager.getInstance(this).isWidgetNotificationEnabled
     )
-    private val notificationTemperatureIconEnabledState = mutableStateOf(
-        SettingsManager.getInstance(this).isWidgetNotificationTemperatureIconEnabled
-    )
     private val todayForecastEnabledState = mutableStateOf(
         SettingsManager.getInstance(this).isTodayForecastEnabled
     )
@@ -142,12 +139,6 @@ class SettingsActivity : BreezyActivity() {
             val notificationEnabled = SettingsManager.getInstance(this).isWidgetNotificationEnabled
             if (notificationEnabledState.value != notificationEnabled) {
                 notificationEnabledState.value = notificationEnabled
-            }
-
-            val notificationTemperatureIconEnabled = SettingsManager.getInstance(this)
-                .isWidgetNotificationTemperatureIconEnabled
-            if (notificationTemperatureIconEnabledState.value != notificationTemperatureIconEnabled) {
-                notificationTemperatureIconEnabledState.value = notificationTemperatureIconEnabled
             }
 
             val todayForecastEnabled = SettingsManager.getInstance(this).isTodayForecastEnabled
@@ -285,7 +276,6 @@ class SettingsActivity : BreezyActivity() {
                     onNavigateBack = { onBack() },
                     hasNotificationPermission = hasNotificationPermission,
                     notificationEnabled = remember { notificationEnabledState }.value,
-                    notificationTemperatureIconEnabled = remember { notificationTemperatureIconEnabledState }.value,
                     postNotificationPermissionEnsurer = { postNotificationPermission(it) },
                     updateWidgetIfNecessary = { context: Context ->
                         scope.launch {
