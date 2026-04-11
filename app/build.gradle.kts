@@ -458,6 +458,8 @@ dependencies {
     implementation(projects.weatherUnit)
     implementation(libs.breezy.datasharing.lib)
 
+    implementation(libs.kotlinx.collections.immutable)
+
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
