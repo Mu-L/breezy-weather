@@ -20,6 +20,7 @@
 **Sources**
 - Atmo France - Use new geocoding services to fix refresh issue for some locations
 - China - Fix nowcasting refresh silently failing
+- ECCC - Fix missing alert title
 - FMI - Added as a new forecast, current, air quality, alert, normals source for Finland (@chunshek). Users on devices with hardened memory allocator (`hardened_malloc`) enabled, such as GrapheneOS may want to disable the feature for the app if they find the refresh to be too slow.
 - Gadgetbridge - Improved weather codes mapping
 - Infoplaza - Added as a new worldwide forecast, current, minutely and normals source (@SKBotNL)
