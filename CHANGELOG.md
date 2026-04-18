@@ -24,6 +24,7 @@
 - ECCC - Fix missing alert title
 - FMI - Added as a new forecast, current, air quality, alert, normals source for Finland (@chunshek). Users on devices with hardened memory allocator (`hardened_malloc`) enabled, such as GrapheneOS may want to disable the feature for the app if they find the refresh to be too slow.
 - Gadgetbridge - Improved weather codes mapping
+- HKO - Add daily weather summary + add next hours summary + update existing ones (@chunshek)
 - Infoplaza - Added as a new worldwide forecast, current, minutely and normals source (@SKBotNL)
 - KNMI - Add textual representation of weather conditions (@willem640)
 - Météo-France/OpenWeather - Improve total precipitation computing (@chunshek)
@@ -32,6 +33,8 @@
 - NWS - Exclude test alerts
 - Pirate Weather - Fix weather texts showing temperatures in the wrong unit (@chunshek)
 - SMG - Fix missing current data (@chunshek)
+- SMG - Add daily min/max humidity (@chunshek)
+- SMG - Add/Update weekly/next hours summary + add daily summary (@chunshek)
 
 
 # Version 6.1.3 (2026-02-12)
