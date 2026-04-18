@@ -16,6 +16,7 @@
 - Fix some notifications marked as sensitive (will now show on lockscreen)
 - Fix notification-widget “Use feels like” option only available when using temperature in statusbar
 - Fix notification-widget not always using feels like temperature when the option is enabled
+- Fix crash when relative humidity is 0% and dewpoint is missing
 
 **Sources**
 - Atmo France - Use new geocoding services to fix refresh issue for some locations

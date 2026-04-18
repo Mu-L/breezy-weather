@@ -55,7 +55,7 @@ fun computeDewPoint(
     temperature: Temperature?,
     relativeHumidity: Ratio?,
 ): Temperature? {
-    if (temperature == null || relativeHumidity == null) return null
+    if (temperature == null || relativeHumidity == null || relativeHumidity.value == 0L) return null
 
     val b = if (temperature < 0.celsius) 17.966 else 17.368
     val c = if (temperature < 0.celsius) 227.15 else 238.88 // °C
