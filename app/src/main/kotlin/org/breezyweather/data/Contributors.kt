@@ -156,6 +156,10 @@ val appContributors: Array<ContributorItem> = arrayOf(
      */
     ContributorItem("ntzb", github = "ntzb"),
     /*
+     * SMHI - Migration to new API
+     */
+    ContributorItem("mu", github = "4eUeP"),
+    /*
      * Logo
      */
     ContributorItem(

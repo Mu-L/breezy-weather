@@ -35,6 +35,7 @@
 - SMG - Fix missing current data (@chunshek)
 - SMG - Add daily min/max humidity (@chunshek)
 - SMG - Add/Update weekly/next hours summary + add daily summary (@chunshek)
+- SMHI - Fix failure to refresh by migrating to new API (@4eUeP)
 
 
 # Version 6.1.3 (2026-02-12)
