@@ -287,8 +287,8 @@
     <string name="common_weather_text_fog">Néboa</string>
     <string name="common_weather_text_dust">Poeira</string>
     <string name="ephemeris_moon">Lúa</string>
-    <string name="widget_custom_subtitle_keyword_xms_description">Posta da lúa hoxe, mañá, ..., 4 días despois</string>
-    <string name="widget_custom_subtitle_keyword_xmp_description">Fase luar de hoxe, mañá, ..., 4 días despois</string>
+    <string name="widget_custom_subtitle_keyword_xms_description">Posta da lúa hoxe, mañá, …, 4 días despois</string>
+    <string name="widget_custom_subtitle_keyword_xmp_description">Fase luar de hoxe, mañá, …, 4 días despois</string>
     <string name="ephemeris_sun">Sol</string>
     <string name="ephemeris_about_rise">A hora de saída e cando o sol ou a lúa aparecen por completo sobre o horizonte.</string>
     <string name="ephemeris_about_set">A hora de posta é cando o sol ou a lúa desaparece por completo baixo o horizonte.</string>
@@ -401,10 +401,10 @@
     <string name="dew_point_about">Sobre o punto de resío</string>
     <string name="dew_point_about_description">O punto de resío é a temperatura á que terías que arrefriar o aire para que a humidade relativa chegue ao %s.</string>
     <string name="dew_point_from_to_number">%1$s a %2$s</string>
-    <string name="pressure_rising">en aumento</string>
+    <string name="pressure_rising">En aumento</string>
     <string name="pressure_steady">Estable</string>
-    <string name="pressure_standard">estándar</string>
-    <string name="pressure_falling">en descenso</string>
+    <string name="pressure_standard">Estándar</string>
+    <string name="pressure_falling">En descenso</string>
     <string name="pressure_about">Sobre a presión</string>
     <string name="pressure_about_description1">A presión atmosférica é a forza que exerce o aire cara abaixo. Esta aplicación usa a presión ao nivel do mar para facilitar a comparación entre lugares con distintas altitudes.</string>
     <string name="pressure_about_description2">Os trocos significativos e rápidos na presión utilízanse para predicir cambios no tempo. Por exemplo, unha caída da presión pode significar que se aveciña choiva ou neve, e un aumento da presión pode significar co tempo vai mellorar. A presión atmosférica anormal pode causar dores de cabeza, dores nas articulacións, fatiga e outros efectos.</string>
